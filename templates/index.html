@@ -6,7 +6,7 @@
     <title>PCD | FOTO SEJARAH</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   </head>
-  <body>
+  <body style="padding-bottom: 300px;">
     <div class="px-4 py-5 my-5 text-center">
         <img class="d-block mx-auto mb-4" src="{{ url_for('display_image', filename='Hello.png') }}" alt="" width="120" height="120">
         <h1 class="display-5 fw-bold">Peningkatan kualitas citra foto sejarah</h1>
@@ -41,10 +41,10 @@
         </ul>
         {% endif %}
       {% endwith %}
-    </p>
+    </ps>
     {% if filename %}
       <div>
-        <img class="d-block mx-auto mb-4" src="{{ url_for('display_image', filename=filename) }}" alt="" width="50%" height="50%">
+        <img id="outputImg" class="d-block mx-auto mb-4" src="{{ url_for('display_image', filename=filename) }}" alt="" width="50%" height="50%">
       </div>
     {% endif %}
 
@@ -52,5 +52,27 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // const outputImg = document.getElementById("outputImg");
+      // const headerOffset = 300;
+      // const elementPosition = outputImg.getBoundingClientRect().top;
+      // const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    
+      // window.scrollTo({
+      //     top: offsetPosition,
+      //     behavior: "smooth"
+      // });
+
+      const element = "#outputImg";
+      const offset = 160;
+
+      window.scrollTo({
+        behavior: 'smooth',
+        top:
+          document.querySelector(element).getBoundingClientRect().top -
+          document.body.getBoundingClientRect().top -
+          offset,
+      })
+    </script>
   </body>
 </html>
