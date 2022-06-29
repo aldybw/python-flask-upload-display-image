@@ -19,7 +19,7 @@ def allowed_file(filename):
 	
 @app.route('/')
 def upload_form():
-	return render_template('upload.html')
+	return render_template('index.html')
 
 @app.route('/', methods=['POST'])
 def upload_image():
@@ -67,7 +67,7 @@ def upload_image():
 		#print('upload_image filename: ' + filename)
 		flash('Image successfully uploaded and displayed below')
 		# return render_template('upload.html', filename="static/uploads/"+filename.rsplit('.', 1)[0].lower()+"_output."+filename.rsplit('.', 1)[1].lower())
-		return render_template('upload.html', filename = processedFilename + processedExt)
+		return render_template('index.html', filename = processedFilename + processedExt)
 	else:
 		flash('Allowed image types are -> png, jpg, jpeg')
 		return redirect(request.url)
