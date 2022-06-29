@@ -3,8 +3,7 @@ import numpy as np
 from PIL import Image
 from skimage import restoration, exposure
 # import scipy.ndimage
-from scipy import misc
-from scipy import ndimage
+from scipy import misc,  ndimage
 from matplotlib import pyplot as plt
 import os
 from app import app
