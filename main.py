@@ -23,23 +23,27 @@ def upload_form():
 
 @app.route('/', methods=['POST'])
 def upload_image():
+	# file not in request
 	if 'file' not in request.files:
 		flash('No file part')
 		return redirect(request.url)
+	
+	# get file from request file
 	file = request.files['file']
+
+	# no image selected
 	if file.filename == '':
 		flash('No image selected for uploading')
 		return redirect(request.url)
+
+	# file selected
 	if file and allowed_file(file.filename):
+		# save original image
 		filename = secure_filename(file.filename)
-		# paling sih kalo mau ngesave foto yg baru diupload, terus ambil foto yg baru diupload pake cv2.imread, abis itu lakuin proses image enhancement, baru abis itu save output ke folder berbeda
-		print("filename :")
-		print(filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-		print(filename.rsplit('.', 1)[1].lower())
-		img = cv2.imread("static/uploads/"+filename,0)
-		print("img : ")
-		print(img)
+
+		# read image and image enhancement process
+		img = cv2.imread("static/uploads/" + filename, 0)
 		equ = cv2.equalizeHist(img)
 		# local_mean = ndimage.uniform_filter(equ, size=11)
 		# gamma_corrected = np.array(255*(equ / 255) ** 2.2)
@@ -47,35 +51,25 @@ def upload_image():
 		# imbright = exposure.adjust_gamma(equ, 1, 1)
 
 		imbright1 = exposure.adjust_log(equ, 1)
-		print("imbright1 :")
-		print(imbright1)
 	
 		# p2, p98 = np.percentile(img, (2, 98))
 		# img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
 		# res = np.hstack((img,imbright1,img_rescale)) #stacking images side-by-side
 
-		# file3 = str(imbright1)
-		# print("file3 :")
-		# print(file3)
-		# file2 = secure_filename(file3)
-		# print("file2 :")
-		# print(file2)
-		img1 = Image.fromarray(imbright1, 'L')
-		print("img1 : ")
-		print(img1)
-		print("extension : ")
-		# print(filename.rsplit('.', 1)[0].lower())
-		# print(filename.rsplit('.', 1)[1].lower())
-		print(filename.rsplit('.', 1)[0].lower()+"_output."+filename.rsplit('.', 1)[1].lower())
-		img1.save(os.path.join(app.config['UPLOAD_FOLDER'], filename.rsplit('.', 1)[0].lower()+"_output."+filename.rsplit('.', 1)[1].lower()))
+		imgOutput = Image.fromarray(imbright1, 'L')
+		
+		# save the processed image
+		processedFilename = filename.rsplit('.', 1)[0].lower() + "_output."
+		processedExt = filename.rsplit('.', 1)[1].lower()
+		imgOutput.save(os.path.join(app.config['UPLOAD_FOLDER'], processedFilename + processedExt))
 
 		# file.save(os.path.join(app.config['UPLOAD_FOLDER'], img1))
 		#print('upload_image filename: ' + filename)
 		flash('Image successfully uploaded and displayed below')
 		# return render_template('upload.html', filename="static/uploads/"+filename.rsplit('.', 1)[0].lower()+"_output."+filename.rsplit('.', 1)[1].lower())
-		return render_template('upload.html', filename=filename.rsplit('.', 1)[0].lower()+"_output."+filename.rsplit('.', 1)[1].lower())
+		return render_template('upload.html', filename = processedFilename + processedExt)
 	else:
-		flash('Allowed image types are -> png, jpg, jpeg, gif')
+		flash('Allowed image types are -> png, jpg, jpeg')
 		return redirect(request.url)
 
 @app.route('/display/<filename>')
