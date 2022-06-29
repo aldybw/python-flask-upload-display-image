@@ -55,7 +55,8 @@ def upload_image():
 		# img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
 		# res = np.hstack((img,imbright1,img_rescale)) #stacking images side-by-side
 
-		imgOutput = Image.fromarray(imbright1, 'L')
+		res = np.hstack((img, imbright1))
+		imgOutput = Image.fromarray(res, 'L')
 		
 		# save the processed image
 		processedFilename = filename.rsplit('.', 1)[0].lower() + "_output."
