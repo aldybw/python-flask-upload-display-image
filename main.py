@@ -22,26 +22,26 @@ def upload_form():
 
 @app.route('/', methods=['POST'])
 def upload_image():
-	# file not in request
+	# Menampilkan pesan error jika file tidak berada dalam request.files
 	if 'file' not in request.files:
 		flash('No file part')
 		return redirect(request.url)
 	
-	# get file from request file
+	# Mengambil file gambar dari request.files
 	file = request.files['file']
 
-	# no image selected
+	# Menampilkan pesan error jika file tidak terpilih
 	if file.filename == '':
 		flash('No image selected for uploading')
 		return redirect(request.url)
 
-	# file selected
+	# Kode program ketika file gambar ada
 	if file and allowed_file(file.filename):
-		# save original image
+		# Langkah pertama adalah menyimpan gambar asli ke direktori penyimpanan
 		filename = secure_filename(file.filename)
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-		# read image and image enhancement process
+		# Membaca gambar dan melakukan proses image enhancement
 		img = cv2.imread("static/uploads/" + filename, 0)
 		equ = cv2.equalizeHist(img)
 		# local_mean = ndimage.uniform_filter(equ, size=11)
@@ -55,10 +55,11 @@ def upload_image():
 		# img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
 		# res = np.hstack((img,imbright1,img_rescale)) #stacking images side-by-side
 
+		# Menggabungkan gambar asli dengan gambar setelah diproses
 		res = np.hstack((img, imbright1))
 		imgOutput = Image.fromarray(res, 'L')
 		
-		# save the processed image
+		# Menyimpan gambar gabungan ke direktori penyimpanan 
 		processedFilename = filename.rsplit('.', 1)[0].lower() + "_output."
 		processedExt = filename.rsplit('.', 1)[1].lower()
 		imgOutput.save(os.path.join(app.config['UPLOAD_FOLDER'], processedFilename + processedExt))
