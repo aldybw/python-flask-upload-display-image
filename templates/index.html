@@ -9,9 +9,9 @@
   <body style="padding-bottom: 500px;">
     <div class="px-4 py-5 my-5 text-center">
         <img class="d-block mx-auto mb-4" src="{{ url_for('display_image', filename='Hello.png') }}" alt="" width="120" height="120">
-        <h1 class="display-5 fw-bold">Peningkatan kualitas citra foto sejarah</h1>
+        <h1 class="display-5 fw-bold text-capitalize">Peningkatan kualitas citra foto sejarah</h1>
         <div class="col-lg-9 mx-auto">
-            <p class="lead mb-4">Pengolahan Citra Digital yang kelompok kami kerjakan adalah untuk meningkatkan kualitas citra pada foto sejarah agar informasi yang ada pada foto sejarah dapat dilihat lebih jelas dengan cara melakukan image enhancement pada foto sejarah..</p>
+            <p class="lead mb-4">Tugas Akhir Mata Kuliah Pengolahan Citra Digital yang kelompok kami kerjakan adalah meningkatkan kualitas citra pada foto sejarah agar informasi yang ada pada foto sejarah dapat dilihat lebih jelas dengan metode histogram equalization dan log adjustment pada foto sejarah.</p>
             <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
                 <form method="post" action="/" enctype="multipart/form-data">
                      <!-- Input  -->
@@ -36,7 +36,9 @@
         {% if messages %}
         <ul id="listMessages">
         {% for message in messages %}
-          <li class="text-center text-green text-bold lead mb-4" style="list-style-type: none;">{{ message }}</li>
+          <li class="text-center lead mb-4" style="list-style-type: none;">
+            <p class="text-success fw-bold">{{ message }}!!</p>
+          </li>
         {% endfor %}
         </ul>
         {% endif %}
