@@ -6,7 +6,7 @@
     <title>PCD | FOTO SEJARAH</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   </head>
-  <body style="padding-bottom: 300px;">
+  <body style="padding-bottom: 500px;">
     <div class="px-4 py-5 my-5 text-center">
         <img class="d-block mx-auto mb-4" src="{{ url_for('display_image', filename='Hello.png') }}" alt="" width="120" height="120">
         <h1 class="display-5 fw-bold">Peningkatan kualitas citra foto sejarah</h1>
@@ -23,7 +23,7 @@
                     </div>
                     <div class="row">
                       <div class="col-mb-3">
-                        <input type="submit" class="btn btn-primary btn-lg px-4 gap-3" value="Submit">
+                        <button onclick="scrollTo()" type="submit" class="btn btn-primary btn-lg px-4 gap-3">Submit</button>
                       </div>
                     </div>
                 </form>
@@ -34,9 +34,9 @@
     <p>
       {% with messages = get_flashed_messages() %}
         {% if messages %}
-        <ul>
+        <ul id="listMessages">
         {% for message in messages %}
-          <li class="text-center lead mb-4" style="list-style-type: none;">{{ message }}</li>
+          <li class="text-center text-green text-bold lead mb-4" style="list-style-type: none;">{{ message }}</li>
         {% endfor %}
         </ul>
         {% endif %}
@@ -53,26 +53,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-      // const outputImg = document.getElementById("outputImg");
-      // const headerOffset = 300;
-      // const elementPosition = outputImg.getBoundingClientRect().top;
-      // const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const element = document.getElementById('listMessages');
+      const headerOffset = 10;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
     
-      // window.scrollTo({
-      //     top: offsetPosition,
-      //     behavior: "smooth"
-      // });
-
-      const element = "#outputImg";
-      const offset = 160;
-
       window.scrollTo({
-        behavior: 'smooth',
-        top:
-          document.querySelector(element).getBoundingClientRect().top -
-          document.body.getBoundingClientRect().top -
-          offset,
-      })
+          top: offsetPosition,
+          behavior: "smooth"
+      });
     </script>
   </body>
 </html>
