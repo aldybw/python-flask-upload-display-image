@@ -44,6 +44,12 @@ def upload_image():
 		# Membaca gambar dan melakukan proses image enhancement
 		img = cv2.imread("static/uploads/" + filename, 0)
 		equ = cv2.equalizeHist(img)
+
+		#Menampilkan Histogram
+		plt.hist(img.ravel(),256,[0,256])
+		plt.suptitle("Sebelum")
+		plt.show()
+
 		# local_mean = ndimage.uniform_filter(equ, size=11)
 		# gamma_corrected = np.array(255*(equ / 255) ** 2.2)
 		
@@ -63,6 +69,11 @@ def upload_image():
 		processedFilename = filename.rsplit('.', 1)[0].lower() + "_output."
 		processedExt = filename.rsplit('.', 1)[1].lower()
 		imgOutput.save(os.path.join(app.config['UPLOAD_FOLDER'], processedFilename + processedExt))
+
+		#Menampilkan Histogram
+		plt.hist(imbright1.ravel(),256,[0,256])
+		plt.suptitle("Sesudah")
+		plt.show()
 
 		# file.save(os.path.join(app.config['UPLOAD_FOLDER'], img1))
 		#print('upload_image filename: ' + filename)

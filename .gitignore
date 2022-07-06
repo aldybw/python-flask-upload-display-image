@@ -1,0 +1,19 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/static/uploads/foto_sejarah_kemerdekaan2_output.jpg
+/static/uploads/foto_sejarah_kemerdekaan2.jpg
+/static/uploads
+/.vs/VSWorkspaceState.json
+/.vs/slnx.sqlite
+/.vs/python/v17/.suo
+/.vs/python/v17
+/.vs/python/FileContentIndex/read.lock
+/.vs/python/FileContentIndex/cca933fb-d293-45e0-9a6a-90094de643b6.vsidx
+/.vs/python/FileContentIndex/94868047-d96b-40aa-9e33-f507f8759276.vsidx
+/.vs/python/FileContentIndex/3e9109b9-a926-41a7-8469-ff138bc44079.vsidx
+/.vs/python/FileContentIndex/1ed8d73e-9778-4351-a577-0b25d53243eb.vsidx
+/.vs/python/FileContentIndex
+/.vs/python
+/.vs
